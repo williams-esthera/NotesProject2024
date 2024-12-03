@@ -1,6 +1,6 @@
 const readline = require('readline');
 
-let notesDB = {}
+let notesDb = {};
 
 function uploadNote() {
     const rl = readline.createInterface({
@@ -8,19 +8,39 @@ function uploadNote() {
         output: process.stdout,
     });
 
-    rl.question('Course name:', (course) => {
-        rl.question('Note title:', (title) => {
-            rl.question('Note contents:', (content) => {
+    rl.question('Course name: ', (course) => {
+        if (!course.trim()) {
+            console.log('Cannot be empty.');
+            rl.close();
+            mainMenu();
+            return;
+        }
+
+        rl.question('Note title: ', (title) => {
+            if (!title.trim()) {
+                console.log('Cannot be empty.');
+                rl.close();
+                mainMenu();
+                return;
+            }
+
+            rl.question('Note contents: ', (content) => {
+                if (!content.trim()) {
+                    console.log('Cannot be empty.');
+                    rl.close();
+                    mainMenu();
+                    return;
+                }
+
                 if (!notesDb[course]) {
                     notesDb[course] = [];
                 }
 
-                notesDb[course].push({title, content});
+                notesDb[course].push({ title, content });
 
-                console.log('\nNote titled' + title + ' uploaded to course ' + course);
+                console.log(`\nNote titled '${title}' uploaded to course '${course}'`);
                 rl.close();
                 mainMenu();
-
             });
         });
     });
@@ -28,15 +48,15 @@ function uploadNote() {
 
 
 function displayNotes() {
-    if (Object,keys(notesDb).length === 0) {
+    if (Object.keys(notesDb).length === 0) {
         console.log('\nNo notes have been uploaded yet.\n');
     } else {
         console.log('\nUploaded Notes:');
         for (const [course, notes] of Object.entries(notesDb)) {
             console.log('\nCourse:' + course);
             notes.forEach((note, index) => {
-                console.log(`${index + 1}. Title: ${note.title}`);
-                console.log(`Content: ${note.content}`);
+                console.log(` ${index + 1}. Title: ${note.title}`);
+                console.log(` Content: ${note.content}`);
             });
         }
         console.log();
