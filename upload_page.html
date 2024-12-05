@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Page | StudyGram</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .circle {
+            height: 100px;
+            width: 5000px;
+            background-color: #555;
+            border-radius: 1000%;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            margin: 50;
+            padding: 0;
+        }
+
+        .banner {
+            background-color: purple; 
+            color: white;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+        }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 80px 20px 20px 20px; 
+        }
+
+        .profile {
+            text-align: left;
+        }
+
+        .profile img {
+            border-radius: 100%;
+            width: 300px;
+            height: 300px;
+            
+        }
+
+        .uploads {
+            max-width: 400px;
+            margin-left: auto;
+        }
+
+        .uploads h2 {
+            text-align: left;
+        }
+
+        .upload-form {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .upload-form input[type="file"] {
+            margin: 10px 0;
+        }
+
+        .upload-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .upload-list li {
+            background-color: #f0f0f0;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner">
+        <h1>StudyGram</h1>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="profile">
+            <h2>Username</h2>
+            <img class = "circle" src="user-profile-pic.jpg">
+        </div>
+
+        <div class="uploads">
+            <h2>Your Uploads</h2>
+            <div class="upload-form">
+                <input type="file" id="fileUpload">
+                <button onclick="uploadFile()">Upload</button>
+            </div>
+            <ul class="upload-list" id="uploadList">
+                
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function uploadFile() {
+            const fileInput = document.getElementById('fileUpload');
+            const fileList = document.getElementById('uploadList');
+            
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const listItem = document.createElement('li');
+                listItem.textContent = file.name;
+                fileList.appendChild(listItem);
+                
+                
+                fileInput.value = '';
+            }
+        }
+    </script>
+
+</body>
+</html>
